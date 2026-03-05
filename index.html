@@ -50,7 +50,6 @@
             z-index: 10;
         }
 
-        /* iPad and larger screens slightly bigger envelope */
         @media (min-width: 768px) {
             .envelope-wrapper { width: 380px; height: 260px; }
         }
@@ -123,7 +122,6 @@
             color: rgba(255,255,255,0.7);
         }
 
-        /* RESPONSIVE LETTER BOX */
         .letter {
             position: absolute;
             bottom: 10px;
@@ -133,7 +131,7 @@
             height: 90%;
             background: var(--paper);
             background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-            padding: 0; /* Padding moved to letter-content for better scrolling */
+            padding: 0;
             box-sizing: border-box;
             transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1;
@@ -144,9 +142,9 @@
 
         .opened .letter {
             visibility: visible;
-            /* Center vertically on all devices */
-            transform: translate(-50%, -15vh); 
-            height: 70vh; /* Scalable height */
+            /* SLIDES THE LETTER HIGHER UP (Changed from -15vh to -28vh) */
+            transform: translate(-50%, -28vh); 
+            height: 75vh; 
             max-height: 600px;
             width: 95%;
             max-width: 450px;
@@ -154,12 +152,12 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.7);
         }
 
-        /* Adds a scrollbar if the phone screen is very small */
         .letter-content {
             opacity: 0;
             transition: 1s ease 0.8s;
             text-align: center;
-            padding: 40px 25px;
+            /* REDUCED TOP PADDING (Changed from 40px to 20px) */
+            padding: 20px 25px 40px 25px;
             height: 100%;
             overflow-y: auto; 
             box-sizing: border-box;
