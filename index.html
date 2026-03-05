@@ -21,13 +21,12 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: #0D1611; /* Very dark green-black */
+            background: #0D1611;
             font-family: 'Inter', sans-serif;
             overflow: hidden;
             perspective: 1000px;
         }
 
-        /* Subtle Luxury Glow */
         body::before {
             content: '';
             position: absolute;
@@ -51,6 +50,11 @@
             z-index: 10;
         }
 
+        /* iPad and larger screens slightly bigger envelope */
+        @media (min-width: 768px) {
+            .envelope-wrapper { width: 380px; height: 260px; }
+        }
+
         .envelope-wrapper:hover {
             transform: scale(1.05);
         }
@@ -67,7 +71,6 @@
             border: 1px solid rgba(197, 160, 89, 0.2);
         }
 
-        /* Diagonal Flap Design */
         .envelope::after {
             content: '';
             position: absolute;
@@ -85,11 +88,15 @@
             height: 0;
             border-left: 160px solid transparent;
             border-right: 160px solid transparent;
-            border-top: 130px solid #243E2C; /* Slightly lighter green */
+            border-top: 130px solid #243E2C;
             transform-origin: top;
             transition: transform 0.8s ease;
             z-index: 5;
             filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+        }
+
+        @media (min-width: 768px) {
+            .flap { border-left: 190px solid transparent; border-right: 190px solid transparent; border-top: 150px solid #243E2C; }
         }
 
         .wax-seal {
@@ -114,9 +121,9 @@
             font-family: 'Cinzel', serif;
             font-size: 28px;
             color: rgba(255,255,255,0.7);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
+        /* RESPONSIVE LETTER BOX */
         .letter {
             position: absolute;
             bottom: 10px;
@@ -126,47 +133,55 @@
             height: 90%;
             background: var(--paper);
             background-image: url('https://www.transparenttextures.com/patterns/natural-paper.png');
-            padding: 40px 25px;
+            padding: 0; /* Padding moved to letter-content for better scrolling */
             box-sizing: border-box;
             transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1;
             visibility: hidden;
             border-radius: 2px;
+            overflow: hidden; 
         }
 
         .opened .letter {
             visibility: visible;
-            transform: translate(-50%, -20%);
-            height: 520px;
-            max-height: 85vh;
+            /* Center vertically on all devices */
+            transform: translate(-50%, -15vh); 
+            height: 70vh; /* Scalable height */
+            max-height: 600px;
+            width: 95%;
+            max-width: 450px;
             z-index: 8;
             box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-            overflow-y: auto;
         }
 
-        .opened .flap { transform: rotateX(180deg); }
-        .opened .wax-seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
-
-        /* Typography */
+        /* Adds a scrollbar if the phone screen is very small */
         .letter-content {
             opacity: 0;
             transition: 1s ease 0.8s;
             text-align: center;
+            padding: 40px 25px;
+            height: 100%;
+            overflow-y: auto; 
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
         }
 
         .opened .letter-content { opacity: 1; }
 
+        .opened .flap { transform: rotateX(180deg); }
+        .opened .wax-seal { opacity: 0; transform: translateX(-50%) scale(0.5); pointer-events: none; }
+
         h2 {
             font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             color: var(--emerald);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         p {
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            line-height: 1.8;
+            font-size: 0.95rem;
+            line-height: 1.7;
             color: var(--text-main);
             margin-bottom: 15px;
             font-weight: 300;
@@ -181,39 +196,33 @@
 
         .invite {
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
             color: var(--emerald);
             font-weight: 700;
         }
 
-        /* Buttons */
         .btn-container {
             margin-top: 30px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             align-items: center;
+            padding-bottom: 20px;
         }
 
         .yes-btn {
             background: var(--forest-green);
             color: var(--gold);
             border: 1px solid var(--gold);
-            padding: 15px 35px;
+            padding: 14px 30px;
             font-family: 'Cinzel', serif;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             cursor: pointer;
             transition: 0.4s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .yes-btn:hover {
-            background: var(--gold);
-            color: var(--forest-green);
-            box-shadow: 0 8px 25px rgba(197, 160, 89, 0.4);
+            width: 80%;
         }
 
         .no-btn {
@@ -224,18 +233,17 @@
             font-style: italic;
             cursor: pointer;
             padding: 10px;
-            transition: 0.3s;
         }
 
         .hint {
             position: absolute;
-            bottom: -60px;
+            bottom: -50px;
             width: 100%;
             text-align: center;
             color: var(--gold);
             font-family: 'Cinzel', serif;
             font-size: 0.7rem;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             animation: pulse 2s infinite;
         }
 
@@ -275,13 +283,13 @@
                 
                 <p>He also noticed the way you dance. The energy and passion you show when you move is something truly amazing to watch.</p>
 
-                <p> He understands that your schedule as a third-year student is probably very busy, but he hopes that maybe someday you could have a short conversation and get to know each other better </p>
+                <p>He understands that your schedule as a third-year student is probably very busy, but he hopes that maybe someday you could have a short conversation and get to know each other better.</p>
                 
                 <div class="gold-divider"></div>
                 
                 <p class="invite">Would you be open to grabbing coffee or a quick meal sometime?</p>
                 
-                <p style="font-size: 0.85rem; color: #777;">A simple talk, no pressure just a break from the school stress.</p>
+                <p style="font-size: 0.8rem; color: #777;">A simple talk, no pressure — just a break from the school stress.</p>
                 
                 <div class="btn-container">
                     <button class="yes-btn" onclick="celebrate(event)">I'd love that</button>
@@ -301,10 +309,8 @@
 
         function dodge() {
             const btn = document.getElementById('noBtn');
-            const maxX = window.innerWidth - 120;
+            const maxX = window.innerWidth - 100;
             const maxY = window.innerHeight - 50;
-            
-            // Smoothly move the button to a random spot
             btn.style.position = 'fixed';
             btn.style.left = Math.random() * maxX + 'px';
             btn.style.top = Math.random() * maxY + 'px';
@@ -312,14 +318,14 @@
         }
 
         function celebrate(e) {
-            e.stopPropagation(); // Prevents clicking the letter from closing it
+            e.stopPropagation();
             const content = document.getElementById('letterContent');
             content.style.opacity = '0';
             
             setTimeout(() => {
                 content.innerHTML = `
-                    <div style="padding-top: 40px;">
-                        <h2 style="font-size: 2.5rem;">Wonderful.</h2>
+                    <div style="padding-top: 20px;">
+                        <h2 style="font-size: 2rem;">Wonderful.</h2>
                         <div class="gold-divider"></div>
                         <p style="font-weight: 600; letter-spacing: 1px;">I truly appreciate you making time.</p>
                         <p style="color: #666; font-size: 0.9rem;">I'll reach out soon to find a moment <br>that works best for you. ☕✨</p>
